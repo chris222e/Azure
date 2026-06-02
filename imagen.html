@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azure Image Analysis</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#020617,#0f172a);
+    color:#e2e8f0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+/* CONTENEDOR */
+.app{
+    width:750px;
+    backdrop-filter:blur(20px);
+    background:rgba(15,23,42,0.7);
+    border:1px solid #1e293b;
+    border-radius:16px;
+    padding:20px;
+}
+
+/* HEADER */
+.header{
+    margin-bottom:15px;
+}
+.header h2{
+    font-size:20px;
+}
+.header p{
+    font-size:13px;
+    opacity:0.6;
+}
+
+/* INPUT */
+.input-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+input{
+    flex:1;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #1e293b;
+    background:#020617;
+    color:white;
+}
+button{
+    padding:12px 16px;
+    border:none;
+    border-radius:10px;
+    background:#3b82f6;
+    color:white;
+    cursor:pointer;
+}
+button:hover{opacity:0.85}
+
+/* STATUS */
+.status{
+    display:none;
+    padding:10px;
+    border-radius:10px;
+    font-size:13px;
+    margin-bottom:15px;
+}
+.status.active{display:block}
+.status.run{background:#1e1b4b;color:#c4b5fd}
+.status.ok{background:#022c22;color:#4ade80}
+.status.err{background:#2a1f1f;color:#f87171}
+
+/* IMG */
+.preview img{
+    width:100%;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+/* RESULTADOS */
+.block{
+    background:#020617;
+    border:1px solid #1e293b;
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:10px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+.tag{
+    background:#1e293b;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <h2>🧠 Azure Vision</h2>
+        <p>Análisis inteligente de imágenes</p>
+    </div>
+
+    <div class="input-box">
+        <input id="imageUrl" placeholder="Pega URL de imagen...">
+        <button onclick="analizarImagen()">Analizar</button>
+    </div>
+
+    <div id="statusBar" class="status"></div>
+
+    <div id="resultSection" class="hidden">
+
+        <div class="preview">
+            <img id="previewImg">
+        </div>
+
+        <div class="block">
+            <b>Descripción:</b>
+            <div id="descripcion"></div>
+        </div>
+
+        <div class="block">
+            <b>Confianza:</b>
+            <div id="confianza"></div>
+        </div>
+
+        <div class="block">
+            <b>Color dominante:</b>
+            <div id="color"></div>
+        </div>
+
+        <div class="block">
+            <b>Etiquetas:</b>
+            <div id="etiquetas" class="tags"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="imagen.js"></script>
+
+</body>
+</html>
