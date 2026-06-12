@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Phi-4 - Azure AI</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/chat.css">
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">
+      <h1>
+        <i class="ph ph-graduation-cap"></i>
+        Azure AI
+      </h1>
+      <p>Dashboard inteligente</p>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-label">👁️ Visión</div>
+      <a href="ocr.html" class="nav-item">
+        <i class="ph ph-book-open-text"></i>
+        OCR
+      </a>
+      <a href="vision-analysis.html" class="nav-item">
+        <i class="ph ph-image-square"></i>
+        Análisis de Imágenes
+      </a>
+      <a href="object-detection.html" class="nav-item">
+        <i class="ph ph-magnifying-glass"></i>
+        Detección de Objetos
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">📝 Lenguaje</div>
+      <a href="entity-extraction.html" class="nav-item">
+        <i class="ph ph-tag"></i>
+        Extracción de Entidades
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">🤖 IA</div>
+      <a href="chat.html" class="nav-item active">
+        <i class="ph ph-chat-dots"></i>
+        Chat (Phi-4)
+      </a>
+      <a href="chat-gpt.html" class="nav-item">
+        <i class="ph ph-robot"></i>
+        GPT Chat
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="chat-container">
+      <div class="chat-box">
+        <div class="chat-header">
+          <i class="ph ph-chat-dots"></i>
+          Chat Phi-4
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+          <div class="message bot">
+            Hola 👋 ¿En qué puedo ayudarte? Soy Phi-4, tu asistente conversacional.
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <input
+            type="text"
+            id="userInput"
+            placeholder="Escribe tu pregunta..."
+            onkeydown="handleKeyPress(event)"
+          >
+          <button id="sendBtn" onclick="sendMessage()">Enviar</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/ui-helpers.js"></script>
+<script src="../js/services/chat.js"></script>
+
+</body>
+</html>

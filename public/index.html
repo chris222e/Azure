@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure AI - Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <h1>
+        <i class="ph ph-graduation-cap"></i>
+        Azure AI
+      </h1>
+      <p>Dashboard inteligente</p>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-label">👁️ Visión</div>
+      <a href="ocr.html" class="nav-item">
+        <i class="ph ph-book-open-text"></i>
+        OCR
+      </a>
+      <a href="vision-analysis.html" class="nav-item">
+        <i class="ph ph-image-square"></i>
+        Análisis de Imágenes
+      </a>
+      <a href="object-detection.html" class="nav-item">
+        <i class="ph ph-magnifying-glass"></i>
+        Detección de Objetos
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">📝 Lenguaje</div>
+      <a href="entity-extraction.html" class="nav-item">
+        <i class="ph ph-tag"></i>
+        Extracción de Entidades
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">🤖 IA</div>
+      <a href="chat.html" class="nav-item">
+        <i class="ph ph-chat-dots"></i>
+        Chat (Phi-4)
+      </a>
+      <a href="chat-gpt.html" class="nav-item">
+        <i class="ph ph-robot"></i>
+        GPT Chat
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="header">
+      <h2>👋 Bienvenido a Azure AI</h2>
+      <p>Selecciona un servicio para comenzar a explorar las capacidades de IA</p>
+    </header>
+
+    <div class="cards-grid">
+      <!-- OCR -->
+      <div class="card" onclick="location.href='ocr.html'">
+        <i class="ph ph-book-open-text"></i>
+        <h3>OCR</h3>
+        <p>Extrae texto de imágenes mediante reconocimiento óptico</p>
+      </div>
+
+      <!-- Vision Analysis -->
+      <div class="card" onclick="location.href='vision-analysis.html'">
+        <i class="ph ph-image-square"></i>
+        <h3>Análisis de Imágenes</h3>
+        <p>Obtén descripción y análisis visual de imágenes</p>
+      </div>
+
+      <!-- Object Detection -->
+      <div class="card" onclick="location.href='object-detection.html'">
+        <i class="ph ph-magnifying-glass"></i>
+        <h3>Detección de Objetos</h3>
+        <p>Identifica y localiza objetos dentro de imágenes</p>
+      </div>
+
+      <!-- Entity Extraction -->
+      <div class="card" onclick="location.href='entity-extraction.html'">
+        <i class="ph ph-tag"></i>
+        <h3>Extracción de Entidades</h3>
+        <p>Extrae información estructurada de textos</p>
+      </div>
+
+      <!-- Chat Phi-4 -->
+      <div class="card" onclick="location.href='chat.html'">
+        <i class="ph ph-chat-dots"></i>
+        <h3>Chat Phi-4</h3>
+        <p>Asistente conversacional basado en Phi-4</p>
+      </div>
+
+      <!-- Chat GPT -->
+      <div class="card" onclick="location.href='chat-gpt.html'">
+        <i class="ph ph-robot"></i>
+        <h3>Chat GPT</h3>
+        <p>Asistente avanzado con capacidades GPT</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
