@@ -167,14 +167,9 @@ Usa la extensión "Live Server" en VS Code para servir los archivos.
 - Usa un backend seguro para procesar las solicitudes a Azure
 - El archivo `.env` está en `.gitignore` para proteger tus credenciales
 
-## 📞 Soporte
 
-Para más información sobre los servicios de Azure, consulta la [documentación oficial](https://learn.microsoft.com/es-es/azure/ai-services/).
 
 ## 👨‍💻 Autor
 
 Christian Espinoza
 
-## 📄 Licencia
-
-ISC
