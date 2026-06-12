@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extracción de Entidades - Azure AI</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/vision.css">
+  <style>
+    .categories-section {
+      background: var(--dark-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .categories-section h4 {
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+
+    .checkbox-item label {
+      margin: 0;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    .results-table thead {
+      background: var(--dark-input);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .results-table th,
+    .results-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .results-table tbody tr:hover {
+      background: rgba(37, 99, 235, 0.05);
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">
+      <h1>
+        <i class="ph ph-graduation-cap"></i>
+        Azure AI
+      </h1>
+      <p>Dashboard inteligente</p>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-label">👁️ Visión</div>
+      <a href="ocr.html" class="nav-item">
+        <i class="ph ph-book-open-text"></i>
+        OCR
+      </a>
+      <a href="vision-analysis.html" class="nav-item">
+        <i class="ph ph-image-square"></i>
+        Análisis de Imágenes
+      </a>
+      <a href="object-detection.html" class="nav-item">
+        <i class="ph ph-magnifying-glass"></i>
+        Detección de Objetos
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">📝 Lenguaje</div>
+      <a href="entity-extraction.html" class="nav-item active">
+        <i class="ph ph-tag"></i>
+        Extracción de Entidades
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">🤖 IA</div>
+      <a href="chat.html" class="nav-item">
+        <i class="ph ph-chat-dots"></i>
+        Chat (Phi-4)
+      </a>
+      <a href="chat-gpt.html" class="nav-item">
+        <i class="ph ph-robot"></i>
+        GPT Chat
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="header">
+      <h2>🏷️ Extracción de Entidades</h2>
+      <p>Extrae información estructurada (personas, lugares, fechas, etc.) de textos</p>
+    </header>
+
+    <div id="statusBar" class="status-bar hidden">
+      <span id="statusIcon" class="status-icon"></span>
+      <span id="statusMsg" class="status-msg"></span>
+    </div>
+
+    <div class="vision-container">
+      <!-- INPUT SECTION -->
+      <div class="input-section">
+        <h3>Ingresa Texto</h3>
+        <div class="form-group">
+          <label for="textoEntrada">Texto a analizar</label>
+          <textarea
+            id="textoEntrada"
+            placeholder="Ej: El ingeniero Carlos Mendoza del equipo de TI coordinó la compra de 15 servidores para Lima el 12 de mayo de 2026."
+            style="height: 150px; resize: vertical;"
+          ></textarea>
+        </div>
+
+        <div class="categories-section">
+          <h4>Selecciona categorías a buscar:</h4>
+          <div class="checkbox-group categorias">
+            <div class="checkbox-item">
+              <input type="checkbox" id="person" name="category" value="Person" checked>
+              <label for="person">Personas</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="location" name="category" value="Location" checked>
+              <label for="location">Lugares</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="organization" name="category" value="Organization" checked>
+              <label for="organization">Organizaciones</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="datetime" name="category" value="DateTime" checked>
+              <label for="datetime">Fechas/Horas</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="quantity" name="category" value="Quantity">
+              <label for="quantity">Cantidades</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="email" name="category" value="Email">
+              <label for="email">Emails</label>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="btnAnalizar" onclick="analyzeText()">
+          <i class="ph ph-magnifying-glass"></i>
+          Analizar
+        </button>
+      </div>
+
+      <!-- RESULT SECTION -->
+      <div id="resultSection" class="result-section hidden">
+        <h3>Entidades Extraídas</h3>
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Entidad</th>
+              <th>Categoría</th>
+              <th>Confianza</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyResultados"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script src="../js/ui-helpers.js"></script>
+<script src="../js/services/entity-extraction.js"></script>
+
+</body>
+</html>
